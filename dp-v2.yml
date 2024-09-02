@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nodejs-app-v2
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: nodejs-app
+      version: v2
+  template:
+    metadata:
+      labels:
+        app: nodejs-app
+        version: v2
+    spec:
+      containers:
+      - name: nodejs-app-v2
+        image: ooghenekaro/argo-rollout-bluegreen:6
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 3000

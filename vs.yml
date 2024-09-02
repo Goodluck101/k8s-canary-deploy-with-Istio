@@ -1,0 +1,27 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: nodejs-vs
+spec:
+  hosts:
+  - "*"
+  gateways:
+  - nodejs-gateway
+  http:
+  - match:
+    - uri:
+        prefix: /
+    route:
+    - destination:
+          port:
+            number: 80
+          host: nodejs-service
+          subset: v1  
+      weight: 100
+    - destination:
+          port:
+            number: 80
+          host: nodejs-service
+          subset: v2
+      weight: 0
+
